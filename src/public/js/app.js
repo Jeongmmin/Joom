@@ -59,11 +59,15 @@ function handleRoomSubmit(event) {
 Enterform.addEventListener('submit', handleRoomSubmit);
 nameForm.addEventListener('submit', handleNicknameSubmit);
 
-socket.on('welcome', (user) => {
-  addMessage(`${user} joined! 😆`);
+socket.on('welcome', (user, newCount) => {
+  const h3 = room.querySelector('h3');
+  h3.innerText = `Room ${roomName} (${newCount})`;
+  addMessage(`${user} arrived! 😆`);
 });
 
-socket.on('bye', (left) => {
+socket.on('bye', (left, newCount) => {
+  const h3 = room.querySelector('h3');
+  h3.innerText = `Room ${roomName} (${newCount})`;
   addMessage(`${left} left! 😥`);
 });
 
